@@ -1,0 +1,71 @@
+:root {
+  --fondo: #e4ebef;
+  --tinta: #1b2a41;
+  --suave: #5d6b7e;
+  --linea: #c9d4db;
+  --acento: #f2c14e;
+  --papel: #ffffff;
+  --radio: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #121b2b;
+    --tinta: #eef2f6;
+    --suave: #9aa8bb;
+    --linea: #2a3a54;
+    --papel: #1b2a41;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  line-height: 1.5;
+}
+main { max-width: 620px; margin: 0 auto; padding: 56px 20px 80px; }
+
+.contador { margin: 0; font-size: clamp(3.5rem, 14vw, 6rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
+.contador strong { font-weight: 800; }
+.sub { margin: 8px 0 20px; color: var(--suave); font-size: 1.1rem; }
+.barra { height: 10px; background: var(--linea); border-radius: 99px; overflow: hidden; }
+.barra span { display: block; height: 100%; background: var(--acento); border-radius: 99px; transition: width .4s ease; }
+
+.nueva { display: flex; gap: 10px; margin: 36px 0 24px; }
+.nueva input {
+  flex: 1; min-width: 0; padding: 14px 16px; font: inherit;
+  background: var(--papel); color: var(--tinta);
+  border: 2px solid var(--linea); border-radius: var(--radio);
+}
+.nueva input:focus { outline: none; border-color: var(--tinta); }
+.nueva button {
+  padding: 0 20px; font: inherit; font-weight: 600; cursor: pointer;
+  background: var(--tinta); color: var(--fondo);
+  border: 0; border-radius: var(--radio);
+}
+.nueva button:hover { opacity: .9; }
+
+.lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.lista li {
+  display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+  background: var(--papel); border-radius: var(--radio);
+}
+.lista form { margin: 0; display: flex; }
+.titulo { flex: 1; overflow-wrap: anywhere; }
+.lista li.hecha .titulo { color: var(--suave); text-decoration: line-through; }
+
+.check {
+  width: 26px; height: 26px; cursor: pointer; padding: 0;
+  background: transparent; border: 2px solid var(--suave); border-radius: 50%;
+}
+.check:hover { border-color: var(--tinta); }
+.hecha .check { background: var(--acento) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231b2a41' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 70% no-repeat; border-color: var(--acento); }
+
+.borrar { background: none; border: 0; padding: 4px 8px; font: inherit; font-size: .9rem; color: var(--suave); cursor: pointer; border-radius: 8px; }
+.borrar:hover { color: var(--tinta); background: var(--linea); }
+
+.vacio { color: var(--suave); }
+
+button:focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

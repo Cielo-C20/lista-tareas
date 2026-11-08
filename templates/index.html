@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mis tareas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main>
+    <header>
+      <p class="contador"><strong>{{ hechas }}</strong> de {{ total }}</p>
+      <p class="sub">
+        {% if total == 0 %}Aún no tienes tareas.
+        {% elif hechas == total %}Todo listo. Buen trabajo.
+        {% else %}tareas completadas{% endif %}
+      </p>
+      <div class="barra" role="progressbar" aria-valuenow="{{ avance }}" aria-valuemin="0" aria-valuemax="100">
+        <span style="width: {{ avance }}%"></span>
+      </div>
+    </header>
+
+    <form class="nueva" method="post" action="{{ url_for('agregar') }}">
+      <input type="text" name="titulo" placeholder="¿Qué tienes que hacer?" maxlength="200" required autofocus>
+      <button type="submit">Agregar tarea</button>
+    </form>
+
+    {% if tareas %}
+    <ul class="lista">
+      {% for t in tareas %}
+      <li class="{{ 'hecha' if t.hecha }}">
+        <form method="post" action="{{ url_for('alternar', tarea_id=t.id) }}">
+          <button class="check" type="submit" aria-label="{{ 'Marcar como pendiente' if t.hecha else 'Marcar como hecha' }}"></button>
+        </form>
+        <span class="titulo">{{ t.titulo }}</span>
+        <form method="post" action="{{ url_for('borrar', tarea_id=t.id) }}">
+          <button class="borrar" type="submit">Borrar</button>
+        </form>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="vacio">Escribe tu primera tarea arriba y presiona Enter.</p>
+    {% endif %}
+  </main>
+</body>
+</html>
